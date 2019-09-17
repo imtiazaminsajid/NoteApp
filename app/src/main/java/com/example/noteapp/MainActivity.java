@@ -74,8 +74,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        CustomAdapter customAdapter = new CustomAdapter(this, noteModelArrayList);
-        gridView.setAdapter(customAdapter);
         Cursor cursor = databaseHelper.showAllData();
         noteModelArrayList.clear();
         while (cursor.moveToNext()) {
@@ -85,6 +83,11 @@ public class MainActivity extends AppCompatActivity {
 
             noteModelArrayList.add(new NoteModel(id, title, note));
         }
+        CustomAdapter customAdapter = new CustomAdapter(this, noteModelArrayList);
         customAdapter.notifyDataSetChanged();
+        gridView.invalidateViews();
+        gridView.setAdapter(customAdapter);
+
+
     }
 }
