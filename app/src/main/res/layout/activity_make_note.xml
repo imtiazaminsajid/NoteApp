@@ -5,27 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".MakeNote">
 
         <EditText
             android:id="@+id/MakeNoteTitle"
             android:hint="Title"
             android:textSize="25sp"
+            android:gravity="center"
             android:layout_width="match_parent"
+            android:background="@drawable/black_bordar"
             android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/MakeNoteNote"
             android:hint="Note"
             android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:gravity="start"
+            android:layout_margin="10dp"
+            android:background="@drawable/black_bordar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="300dp"/>
 
         <Button
             android:id="@+id/MakeNoteSaveData"
-            android:text="Save Data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:text="Save Note"
+            android:textColor="#fff"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_gravity="right"
+            android:background="@drawable/custom_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
 
 
 </LinearLayout>

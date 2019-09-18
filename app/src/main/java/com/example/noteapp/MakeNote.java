@@ -20,6 +20,8 @@ public class MakeNote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_note);
 
+        setTitle("Make A Note");
+
         MakeNoteNote = findViewById(R.id.MakeNoteNote);
         MakeNoteTitle = findViewById(R.id.MakeNoteTitle);
         MakeNoteSaveBtn = findViewById(R.id.MakeNoteSaveData);
@@ -42,6 +44,7 @@ public class MakeNote extends AppCompatActivity {
                     Toast.makeText(MakeNote.this, "Ok", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MakeNote.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }else {
                     Toast.makeText(MakeNote.this, "Not Ok", Toast.LENGTH_SHORT).show();
                 }

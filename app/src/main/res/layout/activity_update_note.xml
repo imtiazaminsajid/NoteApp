@@ -5,26 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".UpdateNote">
 
     <EditText
         android:id="@+id/UpdateTitle"
         android:hint="Title"
+        android:gravity="center"
+        android:maxLength="30"
         android:textSize="25sp"
+        android:background="@drawable/black_bordar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="50dp"/>
 
     <EditText
         android:id="@+id/UpdateNote"
-        android:hint="Note"
-        android:textSize="20sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="350dp"
+        android:gravity="start"
+        android:background="@drawable/black_bordar"
+        android:hint="Note"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/UpdateBtn"
         android:text="Update Data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textColor="#fff"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_gravity="right"
+        android:background="@drawable/custom_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 
 </LinearLayout>

@@ -22,6 +22,8 @@ public class UpdateNote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_note);
 
+        setTitle("Update You Note");
+
         UpdateTitle = findViewById(R.id.UpdateTitle);
         updateNoteET = findViewById(R.id.UpdateNote);
         UpdateBtn = findViewById(R.id.UpdateBtn);
@@ -46,6 +48,7 @@ public class UpdateNote extends AppCompatActivity {
 
                 Intent intent1 = new Intent(UpdateNote.this, MainActivity.class);
                 startActivity(intent1);
+                finish();
 
 
             }
