@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,36 +9,59 @@
     android:padding="20dp"
     tools:context=".MakeNote">
 
-        <EditText
-            android:id="@+id/MakeNoteTitle"
-            android:hint="Title"
-            android:textSize="25sp"
-            android:gravity="center"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:background="@drawable/black_bordar"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
 
-        <EditText
-            android:id="@+id/MakeNoteNote"
-            android:hint="Note"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:gravity="start"
-            android:layout_margin="10dp"
-            android:background="@drawable/black_bordar"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"/>
+                <EditText
+                    android:id="@+id/MakeNoteTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:maxLength="15"
+                    android:background="@drawable/black_bordar"
+                    android:gravity="center"
+                    android:hint="Title"
+                    android:textSize="25sp" />
 
-        <Button
-            android:id="@+id/MakeNoteSaveData"
-            android:text="Save Note"
-            android:textColor="#fff"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_gravity="right"
-            android:background="@drawable/custom_button"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+                <EditText
+                    android:id="@+id/MakeNoteNote"
+                    android:hint="Note"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/black_bordar"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
+
+                <Button
+                    android:id="@+id/MakeNoteSaveData"
+                    android:text="Save Note"
+                    android:textColor="#fff"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"
+                    android:background="@drawable/custom_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
 
 
-</LinearLayout>
+                <Button
+                    android:id="@+id/MakeNoteHomeBTN"
+                    android:text="SEE ALL NOTES"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"
+                    android:background="@drawable/black_bordar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+        </LinearLayout>
+
+
+
+
+</ScrollView>

@@ -2,6 +2,7 @@ package com.example.noteapp;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, MakeNote.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -88,55 +91,142 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("Note", ClickNote);
 
                 startActivity(intent);
+                finish();
             }
         });
 
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder builder =  new AlertDialog.Builder(MainActivity.this);
+//                AlertDialog.Builder builder =  new AlertDialog.Builder(MainActivity.this);
+//
+//                builder.setMessage("Want to Delete?")
+//                        .setCancelable(false)
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//
+//                                String deleteID = noteModelArrayList.get(position).getId();
+//                                databaseHelper.deleteData(deleteID);
+//                            }
+//                        })
+//                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.cancel();
+//                            }
+//                        })
+//                        .create().show();
 
-                builder.setMessage("Want to Delete?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
 
-                                String deleteID = noteModelArrayList.get(position).getId();
-                                databaseHelper.deleteData(deleteID);
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        })
-                        .create().show();
+                final Dialog dialog = new Dialog(MainActivity.this);
+
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+                dialog.setContentView(R.layout.custom_dialog);
+
+                Button no = dialog.findViewById(R.id.dialogNo);
+                Button yes = dialog.findViewById(R.id.dialogYes);
+
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.cancel();
+                    }
+                });
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String deleteID = noteModelArrayList.get(position).getId();
+                        databaseHelper.deleteData(deleteID);
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
 
                 return true;
+
+
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
 
-        builder.setMessage("Do you want to Exit?")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MainActivity.super.onBackPressed();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                })
-                .create().show();
+        final Dialog dialog = new Dialog(MainActivity.this);
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.custom_exit);
+        dialog.setCancelable(false);
+
+        Button no = dialog.findViewById(R.id.dialogNo);
+        Button yes = dialog.findViewById(R.id.dialogYes);
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.super.onBackPressed();
+            }
+        });
+
+        dialog.show();
+
+//        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+//
+//        builder.setMessage("Do you want to Exit?")
+//                .setCancelable(false)
+//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        MainActivity.super.onBackPressed();
+//                    }
+//                })
+//                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                })
+//                .create().show();
     }
+
+//    public void showDialog(){
+//        final Dialog dialog = new Dialog(MainActivity.this);
+//
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//
+//        dialog.setContentView(R.layout.custom_dialog);
+//
+//        Button no = dialog.findViewById(R.id.dialogNo);
+//        Button yes = dialog.findViewById(R.id.dialogYes);
+//
+//        no.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.cancel();
+//            }
+//        });
+//
+//        yes.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String deleteID = noteModelArrayList.get(position).getId();
+//                databaseHelper.deleteData(deleteID);
+//            }
+//        });
+//
+//
+//        dialog.show();
+//    }
 }

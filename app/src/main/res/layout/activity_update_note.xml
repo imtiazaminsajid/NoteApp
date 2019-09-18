@@ -12,7 +12,7 @@
         android:id="@+id/UpdateTitle"
         android:hint="Title"
         android:gravity="center"
-        android:maxLength="30"
+        android:maxLength="15"
         android:textSize="25sp"
         android:background="@drawable/black_bordar"
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
     <EditText
         android:id="@+id/UpdateNote"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
         android:gravity="start"
         android:background="@drawable/black_bordar"
         android:hint="Note"
@@ -35,8 +35,18 @@
         android:textColor="#fff"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:layout_gravity="right"
         android:background="@drawable/custom_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+    <Button
+        android:id="@+id/UpdateNoteHomeBTN"
+        android:text="SEE ALL NOTES"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:background="@drawable/black_bordar"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
