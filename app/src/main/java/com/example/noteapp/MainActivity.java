@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             noteModelArrayList.add(new NoteModel(id, title, note));
         }
-        CustomAdapter customAdapter = new CustomAdapter(this, noteModelArrayList);
+        final CustomAdapter customAdapter = new CustomAdapter(this, noteModelArrayList);
         customAdapter.notifyDataSetChanged();
         gridView.invalidateViews();
         gridView.setAdapter(customAdapter);
