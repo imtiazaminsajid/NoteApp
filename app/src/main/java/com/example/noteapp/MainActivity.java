@@ -1,11 +1,15 @@
 package com.example.noteapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -19,11 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper databaseHelper;
 
-    LinearLayout WriteANote;
-
-    EditText NoteBox, TitleBox;
-    Button SaveData;
-
     CardView flotingBtn;
     GridView gridView;
     RelativeLayout NoteList;
@@ -33,49 +32,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<NoteModel> noteModelArrayList =  new ArrayList<>();
+        final ArrayList<NoteModel> noteModelArrayList =  new ArrayList<>();
 
         flotingBtn =  findViewById(R.id.flotingBtn);
         gridView = findViewById(R.id.gridView);
 
-        WriteANote = findViewById(R.id.WriteANote);
         NoteList = findViewById(R.id.NoteList);
 
-        NoteBox = findViewById(R.id.Note);
-        TitleBox = findViewById(R.id.Title);
-        SaveData =  findViewById(R.id.SaveData);
 
         databaseHelper =  new DatabaseHelper(this);
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
+        final SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
 
-        SaveData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String note = NoteBox.getText().toString();
-                String title = TitleBox.getText().toString();
-
-                long rowNumber = databaseHelper.saveData(title, note);
-                if (rowNumber>-1){
-                    Toast.makeText(MainActivity.this, "Ok", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(MainActivity.this, "Not Ok", Toast.LENGTH_SHORT).show();
-                }
-
-                WriteANote.setVisibility(View.GONE);
-                NoteList.setVisibility(View.VISIBLE);
-            }
-        });
 
         flotingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WriteANote.setVisibility(View.VISIBLE);
+//                WriteANote.setVisibility(View.VISIBLE);
+
+                Intent intent = new Intent(MainActivity.this, MakeNote.class);
+                startActivity(intent);
             }
         });
 
-        Cursor cursor = databaseHelper.showAllData();
+        final Cursor cursor = databaseHelper.showAllData();
         noteModelArrayList.clear();
+
         while (cursor.moveToNext()) {
             String id = cursor.getString(0);
             String title = cursor.getString(1);
@@ -87,6 +68,49 @@ public class MainActivity extends AppCompatActivity {
         customAdapter.notifyDataSetChanged();
         gridView.invalidateViews();
         gridView.setAdapter(customAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String ClickID = noteModelArrayList.get(position).getId();
+                String ClickTitle = noteModelArrayList.get(position).getTitle();
+                String ClickNote = noteModelArrayList.get(position).getNote();
+
+                Intent intent = new Intent(MainActivity.this, UpdateNote.class);
+                intent.putExtra("ID", ClickID);
+                intent.putExtra("Title", ClickTitle);
+                intent.putExtra("Note", ClickNote);
+
+                startActivity(intent);
+            }
+        });
+
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder =  new AlertDialog.Builder(MainActivity.this);
+
+                builder.setMessage("Want to Delete?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                String deleteID = noteModelArrayList.get(position).getId();
+                                databaseHelper.deleteData(deleteID);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create().show();
+
+                return true;
+            }
+        });
 
 
     }
